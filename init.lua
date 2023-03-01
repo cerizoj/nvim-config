@@ -21,11 +21,17 @@ require("plugin-config.project")
 -- 语法高亮
 require("plugin-config.nvim-treesitter")
 
+-- 自动命令
+require("autocmds")
 
 -- LSP
 require("lsp.setup")
 
--- 补全
-require("lsp.cmp")
+-- 自动补全
+require("cmp.setup")
 
+-- 增强
+require("plugin-config.indent-blankline")
 
+-- 格式化
+require("format.setup")

@@ -44,7 +44,6 @@ packer.startup({
     use("rafamadriz/friendly-snippets")
 
     -- 代码格式化
-    use("mhartington/formatter.nvim")
     use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
 
     -- UI 增强
@@ -55,6 +54,9 @@ packer.startup({
     use("folke/neodev.nvim")
     -- JSON 增强
     use("b0o/schemastore.nvim")
+
+    -- indent-blankline
+    use("lukas-reineke/indent-blankline.nvim")
     --
   end,
   config = {
