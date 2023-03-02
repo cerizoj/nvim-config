@@ -27,10 +27,9 @@ null_ls.setup({
 	-- #{c}: code (if available)
 	diagnostics_format = "[#{c}] #{m} (#{s})",
 	on_attach = function(client)
-		vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting_seq_sync()']])
-		--vim.notify("client name", client.name)
-		--if client.name ~= "null-ls" then
-		--	client.resolved_capabilities.document_formatting = false
-		--end
+		-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting_sync()']])
+		if client.name ~= "null-ls" then
+			client.resolved_capabilities.document_formatting = false
+		end
 	end,
 })
