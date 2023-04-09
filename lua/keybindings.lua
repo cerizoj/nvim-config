@@ -18,55 +18,30 @@ local opt = {
 -- 本地变量
 local map = vim.api.nvim_set_keymap
 
--- $跳到行尾不带空格 (交换$ 和 g_)
-map("v", "$", "g_", opt)
-map("v", "g_", "$", opt)
-map("n", "$", "g_", opt)
-map("n", "g_", "$", opt)
-
--- ctrl u / ctrl + d  只移动9行，默认移动半屏
-map("n", "<S-i>", "20k", opt)
-map("n", "<S-k>", "20j", opt)
-
-map("i", "<C-e>", "<ESC>I", opt)
-map("i", "<C-q>", "<ESC>A", opt)
-
 map("i", "<C-s>", "<ESC>:w<CR>", opt)
-map("n", "<C-s>", ":w<CR>", opt)
-map("n", "q", ":q<CR>", opt)
-map("n", "wq", ":wq<CR>", opt)
-
--- magic search
-map("n", "/", "/\\v", { noremap = true, silent = false })
-map("v", "/", "/\\v", { noremap = true, silent = false })
+map("n", "<C-s>", "<ESC>:w<CR>", opt)
 
 ------------------------------------------------------------------
 -- windows 分屏快捷键
 ------------------------------------------------------------------
 -- 取消 s 默认功能
-map("n", "s", "", opt)
-map("n", "sv", ":vsp<CR>", opt)
-map("n", "sh", ":sp<CR>", opt)
+map("n", "<leader>tv", ":vsp<CR>", opt)
+map("n", "<leader>th", ":sp<CR>", opt)
 -- 关闭当前
 map("n", "<C-w>", "<C-w>c", opt)
 -- 关闭其他
 map("n", "<C-o>", "<C-w>o", opt) -- close others
--- alt + hjkl  窗口之间跳转
-map("n", "<C-Left>", "<C-w>h", opt)
-map("n", "<C-Down>", "<C-w>j", opt)
-map("n", "<C-Up>", "<C-w>k", opt)
-map("n", "<C-Right>", "<C-w>l", opt)
 
 -- bufferline
 -- 左右Tab切换
-map("n", "<C-a>", ":BufferLineCyclePrev<CR>", opt)
-map("n", "<C-d>", ":BufferLineCycleNext<CR>", opt)
+map("n", "<A-h>", ":BufferLineCyclePrev<CR>", opt)
+map("n", "<A-l>", ":BufferLineCycleNext<CR>", opt)
+map("n", "<M-h>", ":BufferLineCyclePrev<CR>", opt)
+map("n", "<M-l>", ":BufferLineCycleNext<CR>", opt)
+
 -- 关闭
 --"moll/vim-bbye"
 map("n", "<C-w>", ":Bdelete!<CR>", opt)
-map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
-map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
-map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 
 -- Telescope
 -- 查找文件
@@ -88,7 +63,6 @@ pluginKeys.nvimTreeList = {
 	{ key = "v", action = "vsplit" },
 	{ key = "h", action = "split" },
 	-- 显示隐藏文件
-	{ key = "i", action = "toggle_custom" }, -- 对应 filters 中的 custom (node_modules)
 	{ key = ".", action = "toggle_dotfiles" }, -- Hide (dotfiles)
 	-- 文件操作
 	{ key = "<F5>", action = "refresh" },
@@ -105,53 +79,31 @@ pluginKeys.nvimTreeList = {
 pluginKeys.telescopeList = {
 	i = {
 		-- 上下移动
-		["<Down>"] = "move_selection_next",
-		["<Up>"] = "move_selection_previous",
+		["<C-j>"] = "move_selection_next",
+		["<C-k>"] = "move_selection_previous",
 		-- 历史记录
 		["<C-n>"] = "cycle_history_next",
 		["<C-p>"] = "cycle_history_prev",
 		-- 关闭窗口
 		["<ESC>"] = "close",
 		-- 预览窗口上下滚动
-		["<C-i>"] = "preview_scrolling_up",
-		["<C-k>"] = "preview_scrolling_down",
+		["<C-u>"] = "preview_scrolling_up",
+		["<C-d>"] = "preview_scrolling_down",
 	},
 }
 
 -- lsp 回调函数快捷键设置
 pluginKeys.mapLSP = function(mapbuf)
-	-- rename
-	--[[
-  Lspsaga 替换 rn
-  mapbuf("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opt)
-  --]]
 	mapbuf("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opt)
-	-- code action
-	--[[
-  Lspsaga 替换 ca
-  mapbuf("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
-  --]]
 	mapbuf("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opt)
-	-- go xx
-	--[[
-    mapbuf('n', 'gd', '<cmd>Lspsaga preview_definition<CR>', opt)
-  mapbuf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opt)
-  --]]
 	mapbuf(
 		"n",
 		"<leader>d",
 		"<cmd>lua require'telescope.builtin'.lsp_definitions({ initial_mode = 'normal', })<CR>",
 		opt
 	)
-	--[[
-  mapbuf("n", "gh", "<cmd>Lspsaga hover_doc<cr>", opt)
-  Lspsaga 替换 gh
-  --]]
 	mapbuf("n", "<leader>h", "<cmd>lua vim.lsp.buf.hover()<CR>", opt)
-	--[[
-  Lspsaga 替换 gr
-  mapbuf("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
-  --]]
+	mapbuf("n", "<leader>r", "<cmd>lua vim.lsp.buf.references()<CR>", opt)
 	--mapbuf("n", "<leader>f", "<cmd>Lspsaga lsp_finder<CR>", opt)
 	--[[
   Lspsaga 替换 gp, gj, gk
@@ -163,7 +115,6 @@ pluginKeys.mapLSP = function(mapbuf)
 	mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
 	mapbuf("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
 	mapbuf("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
-	mapbuf("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opt)
 	-- 未用
 	-- mapbuf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opt)
 	-- mapbuf("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opt)
@@ -190,8 +141,10 @@ pluginKeys.comment = {
 	},
 }
 -- ctrl + /
+map("n", "<M-/>", "gcc", { noremap = false })
 map("n", "<A-/>", "gcc", { noremap = false })
 
+map("v", "<M-/>", "gcc", { noremap = false })
 map("v", "<A-/>", "gcc", { noremap = false })
 
 -- 自定义 toggleterm 3个不同类型的命令行窗口

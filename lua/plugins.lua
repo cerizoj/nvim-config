@@ -4,8 +4,8 @@ packer.startup({
 		-- Packer 可以管理自己本身
 		use("wbthomason/packer.nvim")
 		--------------------- colorschemes --------------------
-		-- tokyonight
-		use("folke/tokyonight.nvim")
+		-- OceanicNext
+		use("mhartington/oceanic-next")
 		---------------------- plugins ------------------------
 		-- nvim-tree
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
