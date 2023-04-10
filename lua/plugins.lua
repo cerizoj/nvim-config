@@ -5,7 +5,7 @@ packer.startup({
 		use("wbthomason/packer.nvim")
 		--------------------- colorschemes --------------------
 		-- OceanicNext
-		use("mhartington/oceanic-next")
+		use("folke/tokyonight.nvim")
 		---------------------- plugins ------------------------
 		-- nvim-tree
 		use({ "kyazdani42/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" })
@@ -17,12 +17,12 @@ packer.startup({
 		use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
 		use("nvim-telescope/telescope-ui-select.nvim")
 		-- 启动页
-		use({ "glepnir/dashboard-nvim", commit = "a36b3232c98616149784f2ca2654e77caea7a522" })
+		use({ "glepnir/dashboard-nvim", event = "VimEnter", requires = { "nvim-tree/nvim-web-devicons" } })
 		use("ahmedkhalf/project.nvim")
 		-- 语法高亮
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 
-		-------------------- LSP -----------------------------
+		-------------------- LSP ----------------------------
 		-- installer
 		use({ "williamboman/mason.nvim" })
 		use({ "williamboman/mason-lspconfig.nvim" })

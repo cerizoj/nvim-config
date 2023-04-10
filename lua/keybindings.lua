@@ -112,7 +112,7 @@ pluginKeys.mapLSP = function(mapbuf)
   mapbuf("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opt)
   --]]
 	-- diagnostic
-	mapbuf("n", "gp", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
+	mapbuf("n", "<leader>ds", "<cmd>Lspsaga show_line_diagnostics<CR>", opt)
 	mapbuf("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<cr>", opt)
 	mapbuf("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opt)
 	-- 未用
@@ -143,7 +143,6 @@ pluginKeys.comment = {
 -- ctrl + /
 map("n", "<M-/>", "gcc", { noremap = false })
 map("n", "<A-/>", "gcc", { noremap = false })
-
 map("v", "<M-/>", "gcc", { noremap = false })
 map("v", "<A-/>", "gcc", { noremap = false })
 
@@ -164,14 +163,14 @@ end
 pluginKeys.gitsigns_on_attach = function(bufnr)
 	local gs = package.loaded.gitsigns
 
-	local function map(mode, l, r, opts)
+	local function gmap(mode, l, r, opts)
 		opts = opts or {}
 		opts.buffer = bufnr
 		vim.keymap.set(mode, l, r, opts)
 	end
 
 	-- Navigation
-	map("n", "<leader>gj", function()
+	gmap("n", "<leader>gj", function()
 		if vim.wo.diff then
 			return "]c"
 		end
@@ -181,7 +180,7 @@ pluginKeys.gitsigns_on_attach = function(bufnr)
 		return "<Ignore>"
 	end, { expr = true })
 
-	map("n", "<leader>gk", function()
+	gmap("n", "<leader>gk", function()
 		if vim.wo.diff then
 			return "[c"
 		end
@@ -191,24 +190,24 @@ pluginKeys.gitsigns_on_attach = function(bufnr)
 		return "<Ignore>"
 	end, { expr = true })
 
-	map({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>")
-	map("n", "<leader>gS", gs.stage_buffer)
-	map("n", "<leader>gu", gs.undo_stage_hunk)
-	map({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>")
-	map("n", "<leader>gR", gs.reset_buffer)
-	map("n", "<leader>gp", gs.preview_hunk)
-	map("n", "<leader>gb", function()
+	gmap({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>")
+	gmap("n", "<leader>gS", gs.stage_buffer)
+	gmap("n", "<leader>gu", gs.undo_stage_hunk)
+	gmap({ "n", "v" }, "<leader>gr", ":Gitsigns reset_hunk<CR>")
+	gmap("n", "<leader>gR", gs.reset_buffer)
+	gmap("n", "<leader>gp", gs.preview_hunk)
+	gmap("n", "<leader>gb", function()
 		gs.blame_line({ full = true })
 	end)
-	map("n", "<leader>gd", gs.diffthis)
-	map("n", "<leader>gD", function()
+	gmap("n", "<leader>gd", gs.diffthis)
+	gmap("n", "<leader>gD", function()
 		gs.diffthis("~")
 	end)
 	-- toggle
-	map("n", "<leader>gtd", gs.toggle_deleted)
-	map("n", "<leader>gtb", gs.toggle_current_line_blame)
+	gmap("n", "<leader>gtd", gs.toggle_deleted)
+	gmap("n", "<leader>gtb", gs.toggle_current_line_blame)
 	-- Text object
-	map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
+	gmap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
 end
 
 return pluginKeys

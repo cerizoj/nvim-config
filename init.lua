@@ -8,7 +8,6 @@ require("plugins")
 require("colorscheme")
 
 -- 插件配置
--- 侧边栏
 require("plugin-config.nvim-tree")
 require("plugin-config.bufferline")
 require("plugin-config.lualine")

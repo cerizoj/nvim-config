@@ -18,7 +18,7 @@ autocmd("BufEnter", {
 -- 保存时自动格式化
 autocmd("BufWritePre", {
 	group = myAutoGroup,
-	pattern = { "*.lua", "*.go" },
+	pattern = { "*.lua", "*.go", "*.sh" },
 	callback = function()
 		vim.lsp.buf.format({ auync = true })
 	end,

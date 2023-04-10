@@ -6,12 +6,7 @@ if not status then
 	return
 end
 
-local _, luasnip = pcall(require, "luasnip")
-if not status then
-	return
-end
-
-local _, config = pcall(require, "uConfig")
+local status, luasnip = pcall(require, "luasnip")
 if not status then
 	return
 end
@@ -34,7 +29,7 @@ local mapping = {
 	}),
 	-- 如果窗口内容太多，可以滚动
 	["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-	["C-d"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+	["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 
 	-- 上一个
 	["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -102,14 +97,4 @@ cmp.setup.cmdline(":", {
 	} }),
 })
 
-cmp.setup.filetype({ "markdown", "help" }, {
-	sources = { {
-		name = "luasnip",
-	}, {
-		name = "buffer",
-	}, {
-		name = "path",
-	} },
-})
-
-require("cmp.luasnip")
+require("cmp.snippets")
